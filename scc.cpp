@@ -19,12 +19,12 @@ int main(void) {
 
   states = count-4;
 
-  int path[states][states];
+  int transition[states][states];
   int src,dst,i,j;
 
   for (i=0; i<states; i++) {
     for (j=0; j<states; j++) {
-      path[i][j] = 0;
+      transition[i][j] = 0;
     }
   }
   
@@ -32,27 +32,21 @@ int main(void) {
     scanf("%d::",&src);
     if (scanf("%d",&dst) == 0) continue;
     j=0;
-    path[src-1][j]=dst;
+    transition[src-1][j]=dst;
     while ((ch = getchar()) == ',') {
       scanf("%d",&dst);
       j++;
-      path[src-1][j] = dst;
+      transition[src-1][j] = dst;
     }
   }
 
   for (i=0; i<states; i++) {
-    printf("%d",path[i][0]);
+    printf("%d",transition[i][0]);
     for (j=1; j<states; j++) {
-      printf(" %d",path[i][j]);
+      printf(" %d",transition[i][j]);
     }
     printf("\n");
   }
-  
-  return 0;
-}
-
-
-// 4
   
   return 0;
 }
