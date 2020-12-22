@@ -10,30 +10,47 @@
 #include <string.h>
 
 int main(void) {
-  char s[1024];
+  char s[1024],ch;
   int count=0, states;
   
-/* 1,2
- * States読み取りの段階で状態数がわかるのでこれをもとに配列を用意
- * SCCグラフの計算はTransitionsによる状態ノード間のつながりの情報だけあればできるはず */
   do {
     fgets(s,1024,stdin); count++;
-    //    fputs(s,stdout);
   } while (strncmp(s,"init",4)!=0);
 
   states = count-4;
 
-  printf("%d\n",states);
-
   int path[states][states];
-  int src,dst;
-  
-  scanf("%d", &src);
-  scanf("::");
-  scanf("%d", &path[src][dst]);
+  int src,dst,i,j;
 
-  printf("%d\n", path[src][dst]);
-// 3
+  for (i=0; i<states; i++) {
+    for (j=0; j<states; j++) {
+      path[i][j] = 0;
+    }
+  }
+  
+  for (i=0; i<states; i++) {
+    scanf("%d::",&src);
+    if (scanf("%d",&dst) == 0) continue;
+    j=0;
+    path[src-1][j]=dst;
+    while ((ch = getchar()) == ',') {
+      scanf("%d",&dst);
+      j++;
+      path[src-1][j] = dst;
+    }
+  }
+
+  for (i=0; i<states; i++) {
+    printf("%d",path[i][0]);
+    for (j=1; j<states; j++) {
+      printf(" %d",path[i][j]);
+    }
+    printf("\n");
+  }
+  
+  return 0;
+}
+
 
 // 4
   
