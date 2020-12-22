@@ -31,12 +31,10 @@ int main(void) {
   for (i=0; i<states; i++) {
     scanf("%d::",&src);
     if (scanf("%d",&dst) == 0) continue;
-    j=0;
-    path[src-1][j]=dst;
+    path[src-1][dst-1]=1;
     while ((ch = getchar()) == ',') {
       scanf("%d",&dst);
-      j++;
-      path[src-1][j] = dst;
+      path[src-1][dst-1] = 1;
     }
   }
 
@@ -47,12 +45,6 @@ int main(void) {
     }
     printf("\n");
   }
-  
-  return 0;
-}
-
-
-// 4
   
   return 0;
 }
