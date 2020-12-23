@@ -12,6 +12,8 @@
 int main(void) {
   char s[1024],ch;
   int count=0, states;
+
+  printf("Reading slim output...");
   
   do {
     fgets(s,1024,stdin); count++;
@@ -40,12 +42,25 @@ int main(void) {
     }
   }
 
+  printf("Done.\n");
+  printf("Print slim output.\n");
+  
   for (i=0; i<states; i++) {
     printf("%d",transition[i][0]);
     for (j=1; j<states; j++) {
       printf(" %d",transition[i][j]);
     }
     printf("\n");
+  }
+
+  printf("Reverse all arcs.\n");
+
+  for (i=0, j=0; i<states; i++) {
+    tmp = transition[i][j];
+    while (tmp) {
+      reversed_transition[tmp][j] = i;
+      tmp = transition[i][j++];
+    }
   }
   
   return 0;
