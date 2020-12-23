@@ -13,55 +13,38 @@ int main(void) {
   char s[1024],ch;
   int count=0, states;
 
-  printf("Reading slim output...");
-  
   do {
     fgets(s,1024,stdin); count++;
   } while (strncmp(s,"init",4)!=0);
 
   states = count-4;
 
-  int transition[states][states];
+  int path[states][states];
   int src,dst,i,j;
 
   for (i=0; i<states; i++) {
     for (j=0; j<states; j++) {
-      transition[i][j] = 0;
-    }
-  }
-  
-  for (i=0; i<states; i++) {
-    scanf("%d::",&src);
-    if (scanf("%d",&dst) == 0) continue;
-    j=0;
-    transition[src-1][j]=dst;
-    while ((ch = getchar()) == ',') {
-      scanf("%d",&dst);
-      j++;
-      transition[src-1][j] = dst;
+      path[i][j] = 0;
     }
   }
 
-  printf("Done.\n");
-  printf("Print slim output.\n");
-  
   for (i=0; i<states; i++) {
-    printf("%d",transition[i][0]);
+    scanf("%d::",&src);
+    if (scanf("%d",&dst) == 0) continue;
+    path[src-1][dst-1]=1;
+    while ((ch = getchar()) == ',') {
+      scanf("%d",&dst);
+      path[src-1][dst-1] = 1;
+    }
+  }
+
+  for (i=0; i<states; i++) {
+    printf("%d",path[i][0]);
     for (j=1; j<states; j++) {
-      printf(" %d",transition[i][j]);
+      printf(" %d",path[i][j]);
     }
     printf("\n");
   }
 
-  printf("Reverse all arcs.\n");
-
-  for (i=0, j=0; i<states; i++) {
-    tmp = transition[i][j];
-    while (tmp) {
-      reversed_transition[tmp][j] = i;
-      tmp = transition[i][j++];
-    }
-  }
-  
   return 0;
 }
